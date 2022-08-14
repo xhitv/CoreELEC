@@ -17,13 +17,11 @@ PKG_PATCH_DIRS="$LINUX"
 
 case "$LINUX" in
   amlogic-4.9)
-    PKG_VERSION="12591df47d22d6a0e22474379a0912b44d839795"
-    PKG_SHA256="488b06d6487822a8107d46969c96b479fa4a2d2caaf773208dc93ab91fd3c374"
+    PKG_VERSION="5a21a0398d7355fd02e7ec40d474ea32dadf1fa0"
+    PKG_SHA256="8d9693f990bf194bcbc6d48cd542cf06f69228ee3d86a67624b12364aaaa9795"
     PKG_URL="https://github.com/CoreELEC/linux-amlogic/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
     PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET aml-dtbtools:host"
-    PKG_DEPENDS_UNPACK="media_modules-aml"
-    PKG_NEED_UNPACK="$PKG_NEED_UNPACK $(get_pkg_directory media_modules-aml)"
     PKG_BUILD_PERF="no"
     PKG_GIT_BRANCH="amlogic-4.9-19"
     ;;
@@ -155,9 +153,6 @@ pre_make_target() {
   fi
 
   kernel_make oldconfig
-
-  # copy video firmware (kernel won't compile without it)
-  [ "$LINUX" = "amlogic-4.9" ] && cp -PR $(get_build_dir media_modules-aml)/firmware $PKG_BUILD/firmware/video || :
 }
 
 make_target() {
